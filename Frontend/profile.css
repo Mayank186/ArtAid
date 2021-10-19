@@ -1,0 +1,9 @@
+.image{
+    height: 10%;
+    width:20%;
+}
+button{
+    position: absolute;
+    top: 80px;
+    right: 20px;
+}
