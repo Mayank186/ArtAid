@@ -1,7 +1,8 @@
 import React , { useEffect,useState , Component} from 'react';
 import './App.css';
 import {BrowserRouter as Router,Routes, Route, Link, NavLink} from "react-router-dom";
-import{ Home,Profile, Book, Chat, Task, Slot,About} from "./pages";
+import{ Home, Book, Chat, Task, Slot,About} from "./pages";
+import {Profile,Edit} from './Profile'
 import { Navbar } from 'react-bootstrap';
 
 
@@ -19,6 +20,7 @@ function App(){
     <Route path='/task' element={<Task/>} />
     <Route path='/slot' element={<Slot/>} />
     <Route path='/about' element={<About/>} />
+    <Route path='/edit' element={<Edit/>}/>
 
     </Routes>
     </Router>
