@@ -2,7 +2,6 @@ import React from "react";
 import{NavLink, Outlet} from "react-router-dom";
 import './navbar.css';
 import headimg from './image/img1.jpg';
-import {Profile} from './Profile'
 //import {NavLink,Nav,Bars,NavMenu,NavBtn,NavBtnLink} from './NavbarElements';
 
 export function Home(){
