@@ -11,7 +11,6 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://jayesh:2Ol8BLec9QjxwVCm@notesapp.klr66.mongodb.net/artaid?retryWrites=true&w=majority', {useNewUrlParser : true}, (err, data) =>{
   if (err)  console.log(err);
-  else console.log(data)
 })
 
 var app = express();
