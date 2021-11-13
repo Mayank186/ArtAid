@@ -3,24 +3,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 
-var app = express();
-
-app.use(cors())
-
+// DB
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/artaid', )
-.then(result =>{
-  console.log("COnnected DB")
+mongoose.connect('mongodb+srv://jayesh:2Ol8BLec9QjxwVCm@notesapp.klr66.mongodb.net/artaid?retryWrites=true&w=majority', {useNewUrlParser : true}, (err, data) =>{
+  if (err)  console.log(err);
+  else console.log(data)
 })
-.catch(err =>{
-  console.log(err)
-  console.log("Cannot Connect DB")
-})
+
+var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,6 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-app.listen(3000, () =>{
-  console.log("Listening on port 3000");
+app.listen(3000, ()=>{
+  console.log("Listening on 3000");
 })

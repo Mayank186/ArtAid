@@ -1,18 +1,24 @@
 var mongoose = require('mongoose');
 
 var slotSchema = new mongoose.Schema({
-    time : {
-        type  : String,
-        required : true
-    },
-    date : {
-        type : Date,
-        required: true
-    },
-    isBooked : {
-        type : Boolean,
-        default : 0 // 0 -> Not Booked, 1-> Booked
-    }
+    therapist: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+        }
+    ],
+    slots : [
+        {
+            isBooked : {
+                type : Boolean,
+                default : 0
+            },
+            date : {
+                type :Date,
+                default : null
+            }
+        },
+    ]  
 })
 
 module.exports = mongoose.model('Slot', slotSchema);

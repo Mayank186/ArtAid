@@ -25,6 +25,22 @@ var userSchema = mongoose.Schema({
     isTherapist:{
         type : Number,
         default: 0 
+    },
+    slots : [
+        {
+            isBooked : {
+                type : Boolean,
+                default : 0
+            },
+            dateTime : {
+                type :Date,
+                default : null
+            }
+        },
+    ],
+    imageUrl : {
+        type : String,
+        default : null
     }
 })
 

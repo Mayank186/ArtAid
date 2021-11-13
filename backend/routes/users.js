@@ -1,64 +1,45 @@
 var express = require('express');
-const appointment = require('../model/appointment');
-const Slot = require('../model/slots');
+const Slots = require('../model/Slots');
+const User = require('../model/User');
 var router = express.Router();
-const User = require('../model/User')
 
-router.post('/bookAppointment', (req, res, next) =>{
-  var data = new appointment({
-    therapist : 'Mayank',
-    patient : 'Jayesh',
-    date : "Nothing",
-    time : "24Hr"
+router.get('/profile/:userId', (req, res, next) =>{
+  User.findOne({_id : req.params.userId})
+    .then(user =>{
+      res.status(200).json(user);
+    })
+    .catch(err =>{
+      res.status(400).json(err)
+    });
+});
+
+router.post('/profile/edit/:userId', (req, res, ext) =>{
+  var user = new User({
+    name : req.body.name, 
+    contact:req.body.contact, 
+    email:req.body.email, 
+    address : req.body.address,
+    description : req.body.description,
+    imageUrl : req.body.imageUrl
   });
 
-  data.save()
+  User.updateOne({email : user.email}, {name : req.body.name, contact:req.body.contact, address : req.body.address, description:req.body.description })
     .then(result =>{
-      res.status(200).json({message : "Booking confirmed"});
-      console.log(result)
+      res.status(200).json(result.data)
     })
     .catch(err =>{
-      res.status(400).json(err.data)
-      console.log(err)
+      res.status(401).json(err)
     });
-
 })
 
-//Get User Profile
-router.get('/profile', (req, res, next) => {
-  User.findOne(req.userData.email)
-    .then(user => {
-      res.status(200).json(user)
-      console.log(user)
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(404).json({message : "Something went wrong"})
-    })
-})
-
-router.post('/addSlots', (req, res, next) => {
-  var slots = new Slot({
-    date : req.body.date,
-    time : req.body.time
-  });
-
-  slots.save()
-    .then(data =>{
-      res.status(200).json({message : "Saved SLots"})
-    })
-    .catch(err =>{
-      res.status(401).json({message : "Something went wrong"});
-    });
-
-})
-
-router.get('/viewSlots', (req, res, next) =>{
-  Slot.find().then(slots =>{
-    res.status(200).json({data : slots.data})
-  }).catch(err =>{
-    res.status(404).json(err)
-  });
+router.post('/addSlots/:userId', (req, res, next) =>{
+    User.updateOne({_id : req.params.userId}, { $push: { slots :  {dateTime: req.body.date}} })
+      .then(result =>{
+        res.status(200).json(result)
+      })
+      .catch(err =>{
+        res.status(400).json(err)
+      })
 })
 
 module.exports = router;

@@ -1,16 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var sha256 = require('sha256');
-var nodemailer = require('nodemailer');
+var sha256 = require('sha256')
+var nodemailer = require('nodemailer')
 
-//Models 
+// Models
 var User = require('../model/User');
 
-
-
-                  
-
-//Registration of User
 router.post('/register', (req, res, next) =>{
     var user = new User({
         name:req.body.name,
@@ -31,7 +26,6 @@ router.post('/register', (req, res, next) =>{
                 user.save()
                 .then(async result =>{
                     
-              
                 var html = `
                     <h1>Welcome to the Art Aid project</h1>
                     <br>
@@ -45,7 +39,7 @@ router.post('/register', (req, res, next) =>{
                     service: 'gmail', // true for 465, false for other ports
                     auth: {
                         user: 'jayesh203.jp@gmail.com', // generated ethereal user
-                        pass: 'nqdbhfhiwxtumfhh' // generated ethereal password
+                        pass: 'bumsnjslqckxkuyc' // generated ethereal password
                     }
                 })
 
@@ -67,12 +61,25 @@ router.post('/register', (req, res, next) =>{
         .catch(err =>{
             console.log(err)
             res.json({message: "Something went wrong"});
-        });    
-})
+        });  
+
+});
 
 router.post('/login', (req, res, next) =>{
-    res.json({data : req.body})
+    User.findOne({email : req.body.email}).then(result =>{
+        if(result){
+            if(result.password == sha256(req.body.password)){
+                res.status(200).json({message : "Login Successs", result})
+            }else{
+                res.status(402).json({message : "Login Failed"});
+            }
+        }else{
+            res.status(401).json({message : "No user found"})
+        }
+    }).catch(err =>{
+        console.log(err)
+        res.status(400).json(err)
+    });
 })
-
 
 module.exports = router;
