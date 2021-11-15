@@ -9,8 +9,8 @@ var indexRouter = require('./routes/index');
 // DB
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://jayesh:2Ol8BLec9QjxwVCm@notesapp.klr66.mongodb.net/artaid?retryWrites=true&w=majority', {useNewUrlParser : true}, (err, data) =>{
-  if (err)  console.log(err);
+mongoose.connect('mongodb+srv://jayesh:2Ol8BLec9QjxwVCm@notesapp.klr66.mongodb.net/artaid?retryWrites=true&w=majority', { useNewUrlParser: true }, (err, data) => {
+  if (err) console.log(err);
   else console.log(data)
 })
 
@@ -24,6 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-app.listen(3000, ()=>{
-  console.log("Listening on 3000");
+app.listen(3001, () => {
+  console.log("Listening on 3001");
 })
