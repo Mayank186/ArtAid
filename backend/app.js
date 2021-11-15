@@ -9,9 +9,14 @@ var indexRouter = require('./routes/index');
 // DB
 var mongoose = require('mongoose');
 
+<<<<<<< HEAD
 mongoose.connect('mongodb+srv://jayesh:2Ol8BLec9QjxwVCm@notesapp.klr66.mongodb.net/artaid?retryWrites=true&w=majority', { useNewUrlParser: true }, (err, data) => {
   if (err) console.log(err);
   else console.log(data)
+=======
+mongoose.connect('mongodb+srv://jayesh:2Ol8BLec9QjxwVCm@notesapp.klr66.mongodb.net/artaid?retryWrites=true&w=majority', {useNewUrlParser : true}, (err, data) =>{
+  if (err)  console.log(err);
+>>>>>>> a04327c23a0aacda4404018fdb3c7fc414c68b5b
 })
 
 var app = express();

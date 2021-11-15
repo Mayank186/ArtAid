@@ -30,11 +30,19 @@ var userSchema = mongoose.Schema({
         {
             isBooked : {
                 type : Boolean,
-                default : 0
+                default : false
             },
             dateTime : {
                 type :Date,
                 default : null
+            },
+            patient : {
+                type : mongoose.ObjectId,
+                ref : 'User'
+            },
+            therapist : {
+                type : mongoose.ObjectId, 
+                ref: 'User'
             }
         },
     ],

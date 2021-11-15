@@ -67,11 +67,12 @@ router.post('/register', (req, res, next) =>{
 
 router.post('/login', (req, res, next) =>{
     User.findOne({email : req.body.email}).then(result =>{
+        console.log(result)
         if(result){
             if(result.password == sha256(req.body.password)){
                 res.status(200).json({message : "Login Successs", result})
             }else{
-                res.status(402).json({message : "Login Failed"});
+                res.status(402).json({message : "Login Failed, Incorrect Password"});
             }
         }else{
             res.status(401).json({message : "No user found"})
