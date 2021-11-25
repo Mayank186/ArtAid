@@ -78,4 +78,14 @@ router.get('/allSlots/:userId', (req, res, next) =>{
     })
 })
 
+router.get('/getAllClients', (req, res, next) =>{
+  User.find({isTherapist:false})
+      .then(clients =>{
+        res.status(200).json(clients);
+      })
+      .catch(err =>{
+        res.status(401).json(err);
+      })
+;})
+
 module.exports = router;
