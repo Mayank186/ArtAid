@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 
@@ -15,6 +16,8 @@ mongoose.connect('mongodb+srv://jayesh:2Ol8BLec9QjxwVCm@notesapp.klr66.mongodb.n
 })
 
 var app = express();
+
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());
