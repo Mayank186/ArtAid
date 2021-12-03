@@ -5,6 +5,7 @@ var sha256 = require('sha256');
 var router = express.Router();
 
 router.get('/profile/:userId', (req, res, next) =>{
+  console.log(req.params.userId)
   User.findOne({_id : req.params.userId})
     .then(user =>{
       res.status(200).json(user);
@@ -25,7 +26,7 @@ router.post('/profile/edit/:userId', (req, res, ext) =>{
     imageUrl : req.body.imageUrl
   });
 
-  User.updateOne({email : user.email}, {name : req.body.name, contact:req.body.contact, address : req.body.address, description:req.body.description, password : sha256(req.body.password) })
+  User.updateOne({_id : req.params.userId}, {name : req.body.name, contact:req.body.contact, address : req.body.address, description:req.body.description, password : sha256(req.body.password) })
     .then(result =>{
       res.status(200).json(result)
     })

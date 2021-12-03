@@ -47,7 +47,7 @@ router.post('/register', (req, res, next) =>{
                     let info = await transporter.sendMail({
                         from: '"Fred Foo 👻" <test@test.com>', // sender address
                         to: req.body.email, // list of receivers
-                        subject: "Hello ✔", // Subject line
+                        subject: "Registeration Complete", // Subject line
                         text: "Hello world?", // plain text body
                         html: html, // html body
                       });
@@ -62,20 +62,18 @@ router.post('/register', (req, res, next) =>{
             console.log(err)
             res.json({message: "Something went wrong"});
         });  
-
 });
 
 router.post('/login', (req, res, next) =>{
     User.findOne({email : req.body.email}).then(result =>{
-        console.log(result)
         if(result){
             if(result.password == sha256(req.body.password)){
                 res.status(200).json({message : "Login Successs", result})
             }else{
-                res.status(402).json({message : "Login Failed, Incorrect Password"});
+                res.status(401).json({message : "Login Failed, Incorrect Password"});
             }
         }else{
-            res.status(401).json({message : "No user found"})
+            res.status(402).json({message : "No user found"})
         }
     }).catch(err =>{
         console.log(err)

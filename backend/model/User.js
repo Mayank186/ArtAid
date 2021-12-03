@@ -24,7 +24,7 @@ var userSchema = mongoose.Schema({
     },
     isTherapist:{
         type : Number,
-        default: 0 
+        default: 0  // 0 ---> No, 1 ---> Yes 
     },
     slots : [
         {
