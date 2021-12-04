@@ -33,4 +33,11 @@ router.get('/getChats', (req, res, next) =>{
      });
 })
 
+router.get('/getList', async (req, res, next) =>{
+    var user = req.body.name;
+    var list = [];
+    await Chat.distinct('from', {name : user})
+        
+})
+
 module.exports = router;
