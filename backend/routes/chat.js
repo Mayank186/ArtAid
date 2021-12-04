@@ -36,8 +36,15 @@ router.get('/getChats', (req, res, next) =>{
 router.get('/getList', async (req, res, next) =>{
     var user = req.body.name;
     var list = [];
-    await Chat.distinct('from', {name : user})
+    Chat.distinct('from', {name : user})
+        .then(result =>{
+            res.status(200).json(result)
+        })
+        .catch(err =>{
+            res.status(404).json(err)
+        });
         
 })
+
 
 module.exports = router;
